@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ArrayOfOrder xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Order>
+    <Orderitem_list>
+      <OrderItem>
+        <name_of_item>电脑</name_of_item>
+        <num_of_item>1</num_of_item>
+        <price_of_item>10</price_of_item>
+        <total_price>10</total_price>
+      </OrderItem>
+    </Orderitem_list>
+    <Order_ID>1234567890</Order_ID>
+    <Order_date>2020-04-02T23:22:36.7888701+08:00</Order_date>
+    <Custormer_ID>12345657890</Custormer_ID>
+    <Order_address>江西萍乡</Order_address>
+    <Order_custormet_Name>TRF</Order_custormet_Name>
+    <Order_total_consumption>10</Order_total_consumption>
+  </Order>
+  <Order>
+    <Orderitem_list />
+    <Order_ID>2123456789</Order_ID>
+    <Order_date>2020-04-02T23:22:36.7888727+08:00</Order_date>
+    <Custormer_ID>2123456789</Custormer_ID>
+    <Order_address>江西萍乡</Order_address>
+    <Order_custormet_Name>TRF</Order_custormet_Name>
+    <Order_total_consumption>0</Order_total_consumption>
+  </Order>
+</ArrayOfOrder>

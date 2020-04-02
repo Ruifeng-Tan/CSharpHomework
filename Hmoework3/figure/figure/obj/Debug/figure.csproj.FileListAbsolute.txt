@@ -1,0 +1,6 @@
+D:\Program Files\c#\CSharpHomeWork\Hmoework3\figure\figure\bin\Debug\figure.exe.config
+D:\Program Files\c#\CSharpHomeWork\Hmoework3\figure\figure\bin\Debug\figure.exe
+D:\Program Files\c#\CSharpHomeWork\Hmoework3\figure\figure\bin\Debug\figure.pdb
+D:\Program Files\c#\CSharpHomeWork\Hmoework3\figure\figure\obj\Debug\figure.csprojAssemblyReference.cache
+D:\Program Files\c#\CSharpHomeWork\Hmoework3\figure\figure\obj\Debug\figure.exe
+D:\Program Files\c#\CSharpHomeWork\Hmoework3\figure\figure\obj\Debug\figure.pdb

@@ -1,0 +1,9 @@
+D:\Program Files\c#\Homework1_2\Homework1_2\bin\Debug\Homework1_2.exe.config
+D:\Program Files\c#\Homework1_2\Homework1_2\bin\Debug\Homework1_2.exe
+D:\Program Files\c#\Homework1_2\Homework1_2\bin\Debug\Homework1_2.pdb
+D:\Program Files\c#\Homework1_2\Homework1_2\obj\Debug\Homework1_2.csprojAssemblyReference.cache
+D:\Program Files\c#\Homework1_2\Homework1_2\obj\Debug\Homework1_2.Form1.resources
+D:\Program Files\c#\Homework1_2\Homework1_2\obj\Debug\Homework1_2.Properties.Resources.resources
+D:\Program Files\c#\Homework1_2\Homework1_2\obj\Debug\Homework1_2.csproj.GenerateResource.cache
+D:\Program Files\c#\Homework1_2\Homework1_2\obj\Debug\Homework1_2.exe
+D:\Program Files\c#\Homework1_2\Homework1_2\obj\Debug\Homework1_2.pdb

@@ -1,0 +1,6 @@
+D:\Program Files\c#\CSharpHomeWork\Homework2\Project3\Project3\bin\Debug\Project3.exe.config
+D:\Program Files\c#\CSharpHomeWork\Homework2\Project3\Project3\bin\Debug\Project3.exe
+D:\Program Files\c#\CSharpHomeWork\Homework2\Project3\Project3\bin\Debug\Project3.pdb
+D:\Program Files\c#\CSharpHomeWork\Homework2\Project3\Project3\obj\Debug\Project3.csprojAssemblyReference.cache
+D:\Program Files\c#\CSharpHomeWork\Homework2\Project3\Project3\obj\Debug\Project3.exe
+D:\Program Files\c#\CSharpHomeWork\Homework2\Project3\Project3\obj\Debug\Project3.pdb
