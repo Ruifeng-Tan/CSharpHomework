@@ -32,24 +32,41 @@ namespace 订单系统
         private void button1_Click(object sender, EventArgs e)
         {
             OrderDelForm form = new OrderDelForm();
-            form.Show();
-            totalorderService.DeleteOrder(form.delOrder.Order_ID);
-            QueryAll();
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                totalorderService.DeleteOrder(form.delOrder.Order_ID);
+                QueryAll();
+            }
         }
 
         private void ReviseOrderbtn_Click(object sender, EventArgs e)
         {
-
+            order = OrderbindingSource.Current as Order;
+            if(order == null)
+            {
+                MessageBox.Show("请选中一个订单");
+            }
+            else
+            {
+                Form2 form2 = new Form2(totalorderService, order, true);
+                if(form2.ShowDialog() == DialogResult.OK)
+                {
+                    totalorderService.DeleteOrder(order.Order_ID);
+                    totalorderService.Save_Order(form2.CurrentOrder);
+                    QueryAll();
+                }
+            }
         }
 
         private void AddOrderbtn_Click(object sender, EventArgs e)
         {
             Form2 form2 = new Form2(totalorderService,order);
-            form2.ShowDialog();
-          
-            totalorderService.Save_Order(form2.currentOrder);
-            QueryAll();
-            
+            if (form2.ShowDialog() == DialogResult.OK)
+            {
+                totalorderService.Save_Order(form2.CurrentOrder);
+                QueryAll();
+            }
+
         }
         private void QueryAll()
         {
@@ -70,6 +87,61 @@ namespace 订单系统
         private void gvItem_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void gvItems_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void QuertAllbtn_Click(object sender, EventArgs e)
+        {
+            QueryAll();
+        }
+
+        private void Querybtn_Click(object sender, EventArgs e)
+        {
+            List<Order> tmpOrderList = new List<Order>();
+            string condition = cmbQuertyCondition.Text;
+            string str = tbQuertStr.Text;
+            switch (condition)
+            {
+                case "按用户名查询":
+                    tmpOrderList = totalorderService.Check_By_Order_custormet_Name(str);
+                    break;
+                case "按商品名查询":
+                    tmpOrderList = totalorderService.Check_By_name_of_item(str);
+                    break;
+                case "按订单日期查询":
+                    tmpOrderList = totalorderService.Check_By_Order_date(Convert.ToDateTime(str));
+                    break;
+                default:
+                    MessageBox.Show("请选择一项查询条件");
+                    break;
+            }
+            OrderbindingSource.DataSource = tmpOrderList;
+            OrderbindingSource.ResetBindings(false);
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            DialogResult result = saveFileDialog1.ShowDialog();
+            if (result.Equals(DialogResult.OK))
+            {
+                String fileName = saveFileDialog1.FileName;
+                totalorderService.Export(fileName);
+            }
+        }
+
+        private void btnImport_Click(object sender, EventArgs e)
+        {
+            DialogResult result = openFileDialog1.ShowDialog();
+            if (result.Equals(DialogResult.OK))
+            {
+                String fileName = openFileDialog1.FileName;
+                totalorderService.Import(fileName);
+                QueryAll();
+            }
         }
     }
 }

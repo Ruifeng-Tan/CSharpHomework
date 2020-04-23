@@ -31,12 +31,17 @@
             this.components = new System.ComponentModel.Container();
             this.Order_IDlbl = new System.Windows.Forms.Label();
             this.tbOrderID = new System.Windows.Forms.TextBox();
+            this.orderbindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.cmbCustomerName = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgvOrderDetail = new System.Windows.Forms.DataGridView();
+            this.nameofitemDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.numofitemDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.priceofitemDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalpriceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.orderitemlistBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnReviseItem = new System.Windows.Forms.Button();
             this.btnDelItem = new System.Windows.Forms.Button();
             this.btnAddItem = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
@@ -45,12 +50,12 @@
             this.button5 = new System.Windows.Forms.Button();
             this.tbCustomerName = new System.Windows.Forms.TextBox();
             this.lblCustomerName = new System.Windows.Forms.Label();
-            this.OrderDetailbindingSource = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.orderbindingSource)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrderDetail)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.orderitemlistBindingSource)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.OrderDetailbindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // Order_IDlbl
@@ -65,11 +70,16 @@
             // 
             // tbOrderID
             // 
+            this.tbOrderID.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.orderbindingSource, "Order_ID", true));
             this.tbOrderID.Location = new System.Drawing.Point(72, 58);
             this.tbOrderID.Name = "tbOrderID";
             this.tbOrderID.Size = new System.Drawing.Size(303, 25);
             this.tbOrderID.TabIndex = 4;
             this.tbOrderID.TextChanged += new System.EventHandler(this.tbOrderID_TextChanged);
+            // 
+            // orderbindingSource
+            // 
+            this.orderbindingSource.DataSource = typeof(订单系统.Order);
             // 
             // label1
             // 
@@ -82,6 +92,8 @@
             // 
             // cmbCustomerName
             // 
+            this.cmbCustomerName.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.orderbindingSource, "Order_custormet_Name", true));
+            this.cmbCustomerName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCustomerName.FormattingEnabled = true;
             this.cmbCustomerName.Items.AddRange(new object[] {
             "张三",
@@ -105,7 +117,12 @@
             // 
             this.dgvOrderDetail.AutoGenerateColumns = false;
             this.dgvOrderDetail.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvOrderDetail.DataSource = this.OrderDetailbindingSource;
+            this.dgvOrderDetail.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.nameofitemDataGridViewTextBoxColumn,
+            this.numofitemDataGridViewTextBoxColumn,
+            this.priceofitemDataGridViewTextBoxColumn,
+            this.totalpriceDataGridViewTextBoxColumn});
+            this.dgvOrderDetail.DataSource = this.orderitemlistBindingSource;
             this.dgvOrderDetail.Location = new System.Drawing.Point(0, 31);
             this.dgvOrderDetail.Name = "dgvOrderDetail";
             this.dgvOrderDetail.RowHeadersWidth = 51;
@@ -113,9 +130,45 @@
             this.dgvOrderDetail.Size = new System.Drawing.Size(1034, 266);
             this.dgvOrderDetail.TabIndex = 0;
             // 
+            // nameofitemDataGridViewTextBoxColumn
+            // 
+            this.nameofitemDataGridViewTextBoxColumn.DataPropertyName = "name_of_item";
+            this.nameofitemDataGridViewTextBoxColumn.HeaderText = "商品名";
+            this.nameofitemDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.nameofitemDataGridViewTextBoxColumn.Name = "nameofitemDataGridViewTextBoxColumn";
+            this.nameofitemDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // numofitemDataGridViewTextBoxColumn
+            // 
+            this.numofitemDataGridViewTextBoxColumn.DataPropertyName = "num_of_item";
+            this.numofitemDataGridViewTextBoxColumn.HeaderText = "商品数量";
+            this.numofitemDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.numofitemDataGridViewTextBoxColumn.Name = "numofitemDataGridViewTextBoxColumn";
+            this.numofitemDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // priceofitemDataGridViewTextBoxColumn
+            // 
+            this.priceofitemDataGridViewTextBoxColumn.DataPropertyName = "price_of_item";
+            this.priceofitemDataGridViewTextBoxColumn.HeaderText = "商品单价";
+            this.priceofitemDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.priceofitemDataGridViewTextBoxColumn.Name = "priceofitemDataGridViewTextBoxColumn";
+            this.priceofitemDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // totalpriceDataGridViewTextBoxColumn
+            // 
+            this.totalpriceDataGridViewTextBoxColumn.DataPropertyName = "total_price";
+            this.totalpriceDataGridViewTextBoxColumn.HeaderText = "总价";
+            this.totalpriceDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.totalpriceDataGridViewTextBoxColumn.Name = "totalpriceDataGridViewTextBoxColumn";
+            this.totalpriceDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // orderitemlistBindingSource
+            // 
+            this.orderitemlistBindingSource.DataMember = "Orderitem_list";
+            this.orderitemlistBindingSource.DataSource = this.orderbindingSource;
+            // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.btnReviseItem);
             this.groupBox2.Controls.Add(this.btnDelItem);
             this.groupBox2.Controls.Add(this.btnAddItem);
             this.groupBox2.Location = new System.Drawing.Point(17, 463);
@@ -125,15 +178,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "明细操作";
             // 
-            // btnReviseItem
-            // 
-            this.btnReviseItem.Location = new System.Drawing.Point(308, 24);
-            this.btnReviseItem.Name = "btnReviseItem";
-            this.btnReviseItem.Size = new System.Drawing.Size(145, 55);
-            this.btnReviseItem.TabIndex = 2;
-            this.btnReviseItem.Text = "修改明细";
-            this.btnReviseItem.UseVisualStyleBackColor = true;
-            // 
             // btnDelItem
             // 
             this.btnDelItem.Location = new System.Drawing.Point(157, 24);
@@ -142,6 +186,7 @@
             this.btnDelItem.TabIndex = 1;
             this.btnDelItem.Text = "删除明细";
             this.btnDelItem.UseVisualStyleBackColor = true;
+            this.btnDelItem.Click += new System.EventHandler(this.btnDelItem_Click);
             // 
             // btnAddItem
             // 
@@ -155,6 +200,7 @@
             // 
             // btnSave
             // 
+            this.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnSave.Location = new System.Drawing.Point(381, 56);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(145, 71);
@@ -212,10 +258,6 @@
             this.lblCustomerName.TabIndex = 0;
             this.lblCustomerName.Text = "用户名";
             // 
-            // OrderDetailbindingSource
-            // 
-            this.OrderDetailbindingSource.DataSource = typeof(订单系统.OrderItem);
-            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -232,12 +274,13 @@
             this.Name = "Form2";
             this.Text = "订单信息";
             this.Load += new System.EventHandler(this.AddOrderForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.orderbindingSource)).EndInit();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrderDetail)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.orderitemlistBindingSource)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.OrderDetailbindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -254,13 +297,17 @@
         private System.Windows.Forms.Button btnDelItem;
         private System.Windows.Forms.Button btnAddItem;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Button btnReviseItem;
         private System.Windows.Forms.ComboBox cmbCustomerName;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button btnDelCustomerName;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.TextBox tbCustomerName;
         private System.Windows.Forms.Label lblCustomerName;
-        private System.Windows.Forms.BindingSource OrderDetailbindingSource;
+        private System.Windows.Forms.BindingSource orderbindingSource;
+        private System.Windows.Forms.BindingSource orderitemlistBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameofitemDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn numofitemDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn priceofitemDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn totalpriceDataGridViewTextBoxColumn;
     }
 }

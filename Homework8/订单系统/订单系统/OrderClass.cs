@@ -16,12 +16,13 @@ namespace 订单系统
         
         public string Order_custormet_Name { get; set; }//顾客姓名
         public double Order_total_consumption { get; set; }//商品总价
-        public List<OrderItem> Orderitem_list = new List<OrderItem>();
+        public List<OrderItem> Orderitem_list { get;set;}
 
 
-        public Order() { }
+        public Order() { Orderitem_list = new List<OrderItem>(); }
         public Order(DateTime order_date, double custormer_ID, string order_address, string order_custormet_Name)
         {
+            Orderitem_list = new List<OrderItem>();
             Order_date = order_date;
             Order_ID = Generate_Order_ID();//订单编号随机生成
            
@@ -31,6 +32,7 @@ namespace 订单系统
 
         public Order(double order_ID, DateTime order_date, double custormer_ID, string order_address, string order_custormet_Name)
         {
+            Orderitem_list = new List<OrderItem>();
             Order_ID = order_ID;
             Order_date = order_date;
             
@@ -41,6 +43,7 @@ namespace 订单系统
         }
         public Order(double order_ID, double custormer_ID, string order_address, string order_custormet_Name)
         {
+            Orderitem_list = new List<OrderItem>();
             Order_ID = order_ID;
             Order_date = DateTime.Now;
             
@@ -135,10 +138,10 @@ namespace 订单系统
         /*    -------------------                                ----------------------------------------------------------------------------------*/
         public class OrderItem
         {
-            public string name_of_item;
-            public int num_of_item;
-            public double price_of_item;
-            public double total_price;
+            public string name_of_item { get; set; }
+            public int num_of_item { get; set; }
+            public double price_of_item { get; set; }
+            public double total_price { get; set; }
 
             public OrderItem(string name_of_item, int num_of_item, double price_of_item)
             {

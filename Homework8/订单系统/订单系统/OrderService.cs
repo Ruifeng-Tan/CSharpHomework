@@ -131,6 +131,21 @@ namespace 订单系统
             }
         }
         //将所有订单以xml的形式导出
+        public void Import(string path)
+        {
+            XmlSerializer xs = new XmlSerializer(typeof(List<Order>));
+            using (FileStream fs = new FileStream(path, FileMode.Open))
+            {
+                List<Order> temp = (List<Order>)xs.Deserialize(fs);
+                temp.ForEach(order => {
+                    if (!Order_list.Contains(order))
+                    {
+                        Order_list.Add(order);
+                    }
+                });
+            }
+        }
+        /*
         public void Import(string filename)
         {
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Order>));
@@ -139,5 +154,6 @@ namespace 订单系统
                 Order_list = (List<Order>)xmlSerializer.Deserialize(fs);
             }
         }
+        */
     }
 }

@@ -13,22 +13,23 @@ namespace 订单系统
     public partial class Form2 : Form
     {
         public OrderService orderService { get; set; }
-        public Order currentOrder { get; set; }
+        public Order CurrentOrder { get; set; }
         public Form2()
         {
             InitializeComponent();
         }
-        public Form2(OrderService os)
+        public Form2(OrderService os,Order o,bool Editmode=false)
         {
             InitializeComponent();
             orderService = os;
-        }
-        public Form2(OrderService os,Order o)
-        {
-            InitializeComponent();
-            orderService = os;
-            currentOrder = o;
-            currentOrder.Order_total_consumption = 0;
+            CurrentOrder = o;//获得传进来的Order
+            CurrentOrder.Order_total_consumption = 0;
+            orderbindingSource.DataSource = CurrentOrder;
+            if (Editmode == true)
+            {
+                 tbOrderID.Text = Convert.ToString(CurrentOrder.Order_ID);
+                 tbOrderID.Enabled = false;
+            }
         }
         private void AddOrderForm_Load(object sender, EventArgs e)
         {
@@ -86,18 +87,38 @@ namespace 订单系统
             OrderItem orderItem = new OrderItem();
             ItemAddForm itemAddForm = new ItemAddForm(orderItem);
             itemAddForm.ShowDialog();
-            currentOrder.Add_Item(itemAddForm.currentItem);
-           
+            CurrentOrder.Add_Item(itemAddForm.currentItem);
+            orderbindingSource.DataSource = CurrentOrder;//更新绑定信息，使界面立即显示信息
+            orderbindingSource.ResetBindings(false);
            
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            currentOrder.Order_custormet_Name = cmbCustomerName.Text;
-            currentOrder.Order_ID = Convert.ToDouble(tbOrderID.Text);
-            currentOrder.Order_date = DateTime.Now;
+            CurrentOrder.Order_custormet_Name = cmbCustomerName.Text;
+            CurrentOrder.Order_ID = Convert.ToDouble(tbOrderID.Text);
+            CurrentOrder.Order_date = DateTime.Now;
             this.Close();
 
         }
+
+        private void btnReviseItem_Click(object sender, EventArgs e)
+        {
+    
+
+        }
+
+        private void btnDelItem_Click(object sender, EventArgs e)
+        {
+            OrderItem orderItem = orderitemlistBindingSource.Current as OrderItem;
+            if (orderItem == null)
+            {
+                MessageBox.Show("请选择一个订单项进行删除");
+                return;
+            }
+            CurrentOrder.Delete_Item(orderItem.name_of_item);
+            orderitemlistBindingSource.ResetBindings(false);
+        }
     }
-}
+  }
+
