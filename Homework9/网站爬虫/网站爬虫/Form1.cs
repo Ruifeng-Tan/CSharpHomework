@@ -24,8 +24,8 @@ namespace 网站爬虫
             InitializeComponent();
             dgvResult.DataSource = resultBindingSource;
             //绑定相关的事件响应
-            mycrawler.PageDownloaded += Download;
-            mycrawler.CrawlerStopped += StopCrawing;
+            Crawler.PageDownloaded += Download;
+            Crawler.CrawlerStopped += StopCrawing;
         }
 
         //相应Action
@@ -44,15 +44,18 @@ namespace 网站爬虫
 
         private void Download(Crawler crawler, string url, string info)
         {
-            var pageInfo = new { numIndex = resultBindingSource.Count + 1, URL = url, Status = info };
-            Action action = () => { resultBindingSource.Add(pageInfo); };
-            if (this.InvokeRequired)
+            lock (this)//防止对编号numIndex的数据争用
             {
-                this.Invoke(action);
-            }
-            else
-            {
-                action();
+                var pageInfo = new { numIndex = resultBindingSource.Count + 1, URL = url, Status = info };
+                Action action = () => { resultBindingSource.Add(pageInfo); };
+                if (this.InvokeRequired)
+                {
+                    this.Invoke(action);
+                }
+                else
+                {
+                    action();
+                }
             }
         }
 
@@ -61,10 +64,11 @@ namespace 网站爬虫
         {
             resultBindingSource.Clear();
             mycrawler.StartURL = tbStartUrl.Text;
-
+            
             Match match = Regex.Match(mycrawler.StartURL, Crawler.urlParseRegex);
             if (match.Length == 0) return;
             string host = match.Groups["host"].Value;
+            //设置过滤器
             mycrawler.HostFilter = "^" + host + "$";
             mycrawler.FileFilter = ".html?$";
 

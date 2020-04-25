@@ -15,11 +15,11 @@ namespace 网站爬虫
     class Crawler
     {
         //事件相应机制
-        public event Action<Crawler> CrawlerStopped;
-        public event Action<Crawler, string, string> PageDownloaded;
-
+       static public event Action<Crawler> CrawlerStopped;
+       static public event Action<Crawler, string, string> PageDownloaded;
+       
         //用字典保存所有已下载和待下载URL，key是URL，value表示是否下载成功
-        private Dictionary<string, bool> urls = new Dictionary<string, bool>();
+        static private Dictionary<string, bool> urls = new Dictionary<string, bool>();
 
         //待下载队列
         private Queue<string> pending = new Queue<string>();
@@ -42,6 +42,12 @@ namespace 网站爬虫
             MaxPage = 100;
             HtmlEncoding = Encoding.UTF8;
         }
+        public Crawler(string StartUrl)
+        {
+            MaxPage = 100;
+            HtmlEncoding = Encoding.UTF8;
+            StartURL = StartUrl;
+        }
 
         public void Start()
         {
@@ -51,17 +57,36 @@ namespace 网站爬虫
 
             while (urls.Count < MaxPage && pending.Count > 0)
             {
-                string url = pending.Dequeue();
-                try
+                if (urls.Count == 0)
                 {
-                    string html = DownLoad(url);
-                    urls[url] = true;
-                    PageDownloaded(this, url, "success");
-                    Parse(html, url);//解析,并加入新的链接
+                    string url = pending.Dequeue();
+                    try
+                    {
+                        string html = DownLoad(url);
+                        urls[url] = true;
+                        PageDownloaded(this, url, "success");
+                        Parse(html, url);//解析,并加入新的链接
+                    }
+                    catch (Exception ex)
+                    {
+                        PageDownloaded(this, url, "  Error:" + ex.Message);
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    PageDownloaded(this, url, "  Error:" + ex.Message);
+                    int num = pending.Count;//表示在起始网页下的网页数
+                    Thread[] threads = new Thread[num];
+                   for(int i = 0; i < num; i++)
+                    {
+                        string nextURL = pending.Dequeue();
+                        Crawler anotherCrawler = new Crawler(nextURL);
+                        Thread t = new Thread(new ThreadStart(anotherCrawler.Start));
+                        threads[i] = t;
+                    }
+                   for(int i = 0; i < num; i++)
+                    {
+                        threads[i].Start();
+                    }
                 }
             }
             CrawlerStopped(this);
@@ -88,7 +113,7 @@ namespace 网站爬虫
                 linkUrl = FixUrl(linkUrl, pageUrl);//转绝对路径
 
                 //解析出host和file两个部分，进行过滤
-                Match linkUrlMatch = Regex.Match(linkUrl, urlParseRegex);
+                Match linkUrlMatch = Regex.Match(linkUrl, urlParseRegex);//共得到site,host,file三个分组
                 string host = linkUrlMatch.Groups["host"].Value;
                 string file = linkUrlMatch.Groups["file"].Value;
                 if (file == "") file = "index.html";
@@ -119,6 +144,7 @@ namespace 网站爬虫
                 Match urlMatch = Regex.Match(baseUrl, urlParseRegex);
                 String site = urlMatch.Groups["site"].Value;
                 return site.EndsWith("/") ? site + url.Substring(1) : site + url;
+                //单斜线结尾则选第一个，否则第二个site+url
             }
 
             if (url.StartsWith("../"))
