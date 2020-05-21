@@ -78,13 +78,16 @@ namespace OrderApi.Controllers
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
         //上传一个新order
-        public async Task<ActionResult<Order>> PostOrder(Order order)
+        public async Task<ActionResult<Order>> PostOrder(Order order,int OrderServiceID)
         {   try{
+            order.Order_total_consumption = 0;
+            order.OrderServiceID = OrderServiceID;
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
+            //新建的订单的金额一律为0
         }catch(Exception e){
             return BadRequest(e.InnerException.Message);
-        }//上传Order失败则
+        }//上传Order失败则返回错误信息
 
 
             return CreatedAtAction("GetOrder", new { id = order.Order_ID }, order);
@@ -94,7 +97,7 @@ namespace OrderApi.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Order>> DeleteOrder(int id)
         {
-            var order = await _context.Orders.FindAsync(id);
+            var order =  _context.Orders.Include("Orderitem_list").FirstOrDefault(p => p.Order_ID==id);
             if (order == null)
             {
                 return NotFound();

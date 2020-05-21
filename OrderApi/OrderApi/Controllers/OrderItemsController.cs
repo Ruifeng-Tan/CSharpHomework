@@ -82,6 +82,12 @@ namespace OrderApi.Controllers
         public async Task<ActionResult<OrderItem>> PostOrderItem(OrderItem orderItem)
         {
             _context.OrderItems.Add(orderItem);
+            var order = _context.Orders.FirstOrDefault(p => p.Order_ID == orderItem.Order_ID);
+            if(order!=null){
+                order.Order_total_consumption += orderItem.num_of_item*orderItem.price_of_item;
+                _context.SaveChanges();
+                //新添加一个item之后，订单的总价也要随之改变
+            }
             try
             {
                 await _context.SaveChangesAsync();

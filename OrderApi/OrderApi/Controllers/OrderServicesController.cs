@@ -40,6 +40,44 @@ namespace OrderApi.Controllers
 
             return orderService;
         }
+        [HttpGet("{name_of_item}")]
+        public ActionResult<List<Order>> GetOrders_by_name_of_item(string name_of_item)
+        {
+            List<Order> neededList=new List<Order>();
+            foreach(Order queryorder in _context.Orders){
+                foreach(OrderItem queryorderItem in queryorder.Orderitem_list){
+                    if (queryorderItem.name_of_item == name_of_item){
+                        neededList.Add(queryorder);
+                        break;
+                    }
+
+                }
+            }
+            return neededList;
+        }
+
+        [HttpGet("{customer_name}")]
+        public ActionResult<List<Order>> GetOrders_by_customer_name(string customer_name)
+        {
+            List<Order> neededList=new List<Order>();
+            foreach(Order queryorder in _context.Orders){
+                        if(queryorder.Order_custormet_Name == customer_name){
+                            neededList.Add(queryorder);
+                        }
+                    }
+            return neededList;
+        }
+       [HttpGet("{Order_date}")]
+        public ActionResult<List<Order>> GetOrders_by_Order_date(DateTime Order_date)
+        {
+            List<Order> neededList=new List<Order>();
+            foreach(Order queryorder in _context.Orders){
+                        if(queryorder.Order_date == Order_date){
+                            neededList.Add(queryorder);
+                        }
+                    }
+            return neededList;
+        }
 
         // PUT: api/OrderServices/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
@@ -89,7 +127,8 @@ namespace OrderApi.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<OrderService>> DeleteOrderService(int id)
         {
-            var orderService = await _context.OrderServices.FindAsync(id);
+            //根据id删除orderservice及该服务中保存的订单
+            var orderService = _context.OrderServices.Include("Order_list").FirstOrDefault(p => p.OrderServiceID == id);
             if (orderService == null)
             {
                 return NotFound();
