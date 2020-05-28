@@ -79,8 +79,10 @@ namespace OrderApi.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<OrderItem>> PostOrderItem(OrderItem orderItem)
+        public async Task<ActionResult<OrderItem>> PostOrderItem(OrderItem orderItem,int Order_ID)
         {
+            orderItem.Order_ID = Order_ID;
+            // 将order_id 设置为如此
             _context.OrderItems.Add(orderItem);
             var order = _context.Orders.FirstOrDefault(p => p.Order_ID == orderItem.Order_ID);
             if(order!=null){

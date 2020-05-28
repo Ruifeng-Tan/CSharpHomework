@@ -75,7 +75,7 @@ namespace 网站爬虫
                 else
                 {
                     int num = pending.Count;//表示在起始网页下的网页数
-                    Thread[] threads = new Thread[num];
+                    Thread[] threads = new Thread[num];//多线程爬虫
                    for(int i = 0; i < num; i++)
                     {
                         string nextURL = pending.Dequeue();

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ZphrLEB59ayX4LhB+9l4cUZKbag05CeOTWDESTL8WnoiBHA1gbVxEKOERjE/wrwBMGZi3O1ySojw9pBH8TCg5w==",
+  "dgSpecHash": "2b8Le5Lt0gNIrQomsCn27p23Vd8pSdgwM0LoOlFkRLMUJeOapGAjvYk4WoEIfpLIUIyJrzRm6Q2aObWUWLJHng==",
   "success": true,
-  "projectFilePath": "D:\\Program Files\\c#\\CSharpHomeWork\\Homework5\\Project1\\Project1Tests1\\Project1Tests1.csproj",
+  "projectFilePath": "D:\\Program Files\\c#\\CSharpHomeWork\\Homework6\\Project1\\Project1Tests1\\Project1Tests1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Lenovo\\.nuget\\packages\\coverlet.collector\\1.2.0\\coverlet.collector.1.2.0.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.codecoverage\\16.2.0\\microsoft.codecoverage.16.2.0.nupkg.sha512",
